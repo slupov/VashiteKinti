@@ -10,12 +10,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\VashiteKinti.Data\VashiteKinti.Data.csproj" />
+    <ProjectReference Include="..\VashiteKinti.Services\VashiteKinti.Services.csproj" />
   </ItemGroup>
 
 </Project>

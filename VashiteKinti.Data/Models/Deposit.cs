@@ -9,7 +9,7 @@ namespace VashiteKinti.Data.Models
     {
         public int Id { get; set; }
 
-        public Bank Bank { get; set; }
+        public virtual Bank Bank { get; set; }
         public int BankId { get; set; }
 
         public String Name { get; set; }

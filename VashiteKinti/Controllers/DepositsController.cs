@@ -7,23 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using VashiteKinti.Data;
 using VashiteKinti.Data.Models;
+using VashiteKinti.Services;
 
 namespace VashiteKinti.Web.Controllers
 {
     public class DepositsController : Controller
     {
-        private readonly VashiteKintiDbContext _context;
+        private readonly IGenericDataService<Deposit> _deposits;
 
-        public DepositsController(VashiteKintiDbContext context)
+        public DepositsController(IGenericDataService<Deposit> deposits)
         {
-            _context = context;
+            _deposits = deposits;
         }
 
         // GET: Deposits
         public async Task<IActionResult> Index()
         {
-            var vashiteKintiDbContext = _context.Deposits.Include(d => d.Bank);
-            return View(await vashiteKintiDbContext.ToListAsync());
+            var deposits = await _deposits.GetAllAsync();
+
+            return View(deposits);
         }
 
         // GET: Deposits/Details/5
@@ -34,9 +36,8 @@ namespace VashiteKinti.Web.Controllers
                 return NotFound();
             }
 
-            var deposit = await _context.Deposits
-                .Include(d => d.Bank)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var deposit = await _deposits.GetSingleOrDefaultAsync(m => m.Id == id);
+
             if (deposit == null)
             {
                 return NotFound();
@@ -48,7 +49,6 @@ namespace VashiteKinti.Web.Controllers
         // GET: Deposits/Create
         public IActionResult Create()
         {
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Id");
             return View();
         }
 
@@ -61,11 +61,11 @@ namespace VashiteKinti.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(deposit);
-                await _context.SaveChangesAsync();
+                _deposits.Add(deposit);
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Id", deposit.BankId);
+
             return View(deposit);
         }
 
@@ -77,12 +77,12 @@ namespace VashiteKinti.Web.Controllers
                 return NotFound();
             }
 
-            var deposit = await _context.Deposits.FindAsync(id);
+            var deposit = await _deposits.GetSingleOrDefaultAsync(x => x.Id == id);
             if (deposit == null)
             {
                 return NotFound();
             }
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Id", deposit.BankId);
+
             return View(deposit);
         }
 
@@ -102,12 +102,11 @@ namespace VashiteKinti.Web.Controllers
             {
                 try
                 {
-                    _context.Update(deposit);
-                    await _context.SaveChangesAsync();
+                    _deposits.Update(deposit);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DepositExists(deposit.Id))
+                    if (!await DepositExists(deposit.Id))
                     {
                         return NotFound();
                     }
@@ -118,7 +117,6 @@ namespace VashiteKinti.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BankId"] = new SelectList(_context.Banks, "Id", "Id", deposit.BankId);
             return View(deposit);
         }
 
@@ -130,9 +128,7 @@ namespace VashiteKinti.Web.Controllers
                 return NotFound();
             }
 
-            var deposit = await _context.Deposits
-                .Include(d => d.Bank)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var deposit = await _deposits.GetSingleOrDefaultAsync(m => m.Id == id);
             if (deposit == null)
             {
                 return NotFound();
@@ -146,15 +142,15 @@ namespace VashiteKinti.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var deposit = await _context.Deposits.FindAsync(id);
-            _context.Deposits.Remove(deposit);
-            await _context.SaveChangesAsync();
+            var deposit = await _deposits.GetSingleOrDefaultAsync(x => x.Id == id);
+            _deposits.Remove(deposit);
+
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DepositExists(int id)
+        private async Task<bool> DepositExists(int id)
         {
-            return _context.Deposits.Any(e => e.Id == id);
+            return await _deposits.AnyAsync(e => e.Id == id);
         }
     }
 }

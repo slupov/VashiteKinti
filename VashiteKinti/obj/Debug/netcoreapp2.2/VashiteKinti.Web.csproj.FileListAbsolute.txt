@@ -37,3 +37,5 @@ D:\Projects\VashiteKinti.Web\VashiteKinti\obj\Debug\netcoreapp2.2\Razor\Views\De
 D:\Projects\VashiteKinti.Web\VashiteKinti\obj\Debug\netcoreapp2.2\Razor\Views\Deposits\Details.g.cshtml.cs
 D:\Projects\VashiteKinti.Web\VashiteKinti\obj\Debug\netcoreapp2.2\Razor\Views\Deposits\Edit.g.cshtml.cs
 D:\Projects\VashiteKinti.Web\VashiteKinti\obj\Debug\netcoreapp2.2\Razor\Views\Deposits\Index.g.cshtml.cs
+D:\Projects\VashiteKinti.Web\VashiteKinti\bin\Debug\netcoreapp2.2\VashiteKinti.Services.dll
+D:\Projects\VashiteKinti.Web\VashiteKinti\bin\Debug\netcoreapp2.2\VashiteKinti.Services.pdb

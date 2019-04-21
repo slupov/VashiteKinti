@@ -1,0 +1,34 @@
+﻿[
+  {
+    "PaymentMethod": "0",
+    "Currency": "0",
+    "BankId": "0",
+    "Interest": "0",
+    "MinAmount": "0",
+    "Name": "Name1"
+  },
+  {
+    "PaymentMethod": "0",
+    "Currency": "0",
+    "BankId": "0",
+    "Interest": "0",
+    "MinAmount": "0",
+    "Name": "Name2"
+  },
+  {
+    "PaymentMethod": "0",
+    "Currency": "0",
+    "BankId": "0",
+    "Interest": "0",
+    "MinAmount": "0",
+    "Name": "Name3"
+  },
+  {
+    "PaymentMethod": "0",
+    "Currency": "0",
+    "BankId": "0",
+    "Interest": "0",
+    "MinAmount": "0",
+    "Name": "Name4"
+  }
+]

@@ -15,6 +15,9 @@ namespace VashiteKinti.Data.Models
     {
         public int Id { get; set; }
 
+        public virtual Bank Bank { get; set; }
+        public int BankId { get; set; }
+
         public InvestmentType InvestmentType { get; set; }
     }
 }

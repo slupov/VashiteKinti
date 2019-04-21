@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "2c13e8e402c1e6a9687cf5bb7b41e3ad1c05702a"
+    "signature": "5d020fb757b612985a71bc52006bd41215605050"
   },
   "compilationOptions": {},
   "targets": {
@@ -9,6 +9,7 @@
       "VashiteKinti.Data/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "2.2.4",
+          "Newtonsoft.Json": "12.0.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.2.0.0",
           "Microsoft.EntityFrameworkCore.Relational": "2.2.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.2.0.0",
@@ -167,6 +168,14 @@
           "lib/netstandard2.0/Microsoft.Extensions.Primitives.dll": {
             "assemblyVersion": "2.2.0.0",
             "fileVersion": "2.2.0.18315"
+          }
+        }
+      },
+      "Newtonsoft.Json/12.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.1.22727"
           }
         }
       },
@@ -498,6 +507,13 @@
       "sha512": "sha512-vpH+o7f8obVx65PiEtBXxTwL5RosK60fNIMy/y8WGE4/r4IvAqQGukOzMhxsp//Accvd7kmukyQTVkqVYdaDyA==",
       "path": "microsoft.extensions.primitives/2.2.0",
       "hashPath": "microsoft.extensions.primitives.2.2.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/12.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jmVyoEyk0In8r+AObYQyFKVFm7uSRzE0XSHSbEtBJcZDMV6DqJoyB4FLcHwprPVhAh826so0db3DIKXVnpGoPA==",
+      "path": "newtonsoft.json/12.0.1",
+      "hashPath": "newtonsoft.json.12.0.1.nupkg.sha512"
     },
     "Remotion.Linq/2.2.0": {
       "type": "package",
