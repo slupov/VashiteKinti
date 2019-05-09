@@ -1,18 +1,14 @@
 [
   {
     "CardType": "0",
-    "BankId": "0"
+    "BankId": "1"
   },
   {
     "CardType": "0",
-    "BankId": "0"
+    "BankId": "2"
   },
   {
     "CardType": "0",
-    "BankId": "0"
-  },
-  {
-    "CardType": "0",
-    "BankId": "0"
+    "BankId": "3"
   }
 ]

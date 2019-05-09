@@ -11,27 +11,23 @@ using VashiteKinti.Services;
 
 namespace VashiteKinti.Web.Controllers
 {
-    public class DepositsController : Controller
+    public class BanksController : Controller
     {
-        private readonly IGenericDataService<Deposit> _deposits;
         private readonly IGenericDataService<Bank> _banks;
 
-        public DepositsController(IGenericDataService<Deposit> deposits,
-            IGenericDataService<Bank> banks)
+        public BanksController(IGenericDataService<Bank> banks)
         {
-            _deposits = deposits;
             _banks = banks;
         }
 
-        // GET: Deposits
+        // GET: Banks
         public async Task<IActionResult> Index()
         {
-            var deposits = await _deposits.GetAllAsync();
-
-            return View(deposits);
+            var banks = await _banks.GetAllAsync();
+            return View(banks);
         }
 
-        // GET: Deposits/Details/5
+        // GET: Banks/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,45 +35,37 @@ namespace VashiteKinti.Web.Controllers
                 return NotFound();
             }
 
-            var deposit = await _deposits.GetSingleOrDefaultAsync(m => m.Id == id);
-
-            if (deposit == null)
+            var bank = await _banks.GetSingleOrDefaultAsync(m => m.Id == id);
+            if (bank == null)
             {
                 return NotFound();
             }
 
-            return View(deposit);
+            return View(bank);
         }
 
-        // GET: Deposits/Create
-        public async Task<IActionResult> Create()
+        // GET: Banks/Create
+        public IActionResult Create()
         {
-            IEnumerable<Bank> banks = new List<Bank>();
-            banks = await _banks.GetAllAsync();
-
-            ViewBag.ListOfBanks = banks;
-
             return View();
         }
 
-        // POST: Deposits/Create
+        // POST: Banks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,BankId,Name,MinAmount,Interest,PaymentMethod,Currency")] Deposit deposit)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Bank bank)
         {
             if (ModelState.IsValid)
             {
-                _deposits.Add(deposit);
-
+                _banks.Add(bank);
                 return RedirectToAction(nameof(Index));
             }
-
-            return View(deposit);
+            return View(bank);
         }
 
-        // GET: Deposits/Edit/5
+        // GET: Banks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,23 +73,22 @@ namespace VashiteKinti.Web.Controllers
                 return NotFound();
             }
 
-            var deposit = await _deposits.GetSingleOrDefaultAsync(x => x.Id == id);
-            if (deposit == null)
+            var bank = await _banks.GetSingleOrDefaultAsync(x => x.Id == id);
+            if (bank == null)
             {
                 return NotFound();
             }
-
-            return View(deposit);
+            return View(bank);
         }
 
-        // POST: Deposits/Edit/5
+        // POST: Banks/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BankId,Name,MinAmount,Interest,PaymentMethod,Currency")] Deposit deposit)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Bank bank)
         {
-            if (id != deposit.Id)
+            if (id != bank.Id)
             {
                 return NotFound();
             }
@@ -110,11 +97,11 @@ namespace VashiteKinti.Web.Controllers
             {
                 try
                 {
-                    _deposits.Update(deposit);
+                    _banks.Update(bank);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await DepositExists(deposit.Id))
+                    if (!await BankExists(bank.Id))
                     {
                         return NotFound();
                     }
@@ -125,10 +112,10 @@ namespace VashiteKinti.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(deposit);
+            return View(bank);
         }
 
-        // GET: Deposits/Delete/5
+        // GET: Banks/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,29 +123,28 @@ namespace VashiteKinti.Web.Controllers
                 return NotFound();
             }
 
-            var deposit = await _deposits.GetSingleOrDefaultAsync(m => m.Id == id);
-            if (deposit == null)
+            var bank = await _banks.GetSingleOrDefaultAsync(m => m.Id == id);
+            if (bank == null)
             {
                 return NotFound();
             }
 
-            return View(deposit);
+            return View(bank);
         }
 
-        // POST: Deposits/Delete/5
+        // POST: Banks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var deposit = await _deposits.GetSingleOrDefaultAsync(x => x.Id == id);
-            _deposits.Remove(deposit);
-
+            var bank = await _banks.GetSingleOrDefaultAsync(x=> x.Id == id);
+            _banks.Remove(bank);
             return RedirectToAction(nameof(Index));
         }
 
-        private async Task<bool> DepositExists(int id)
+        private async Task<bool> BankExists(int id)
         {
-            return await _deposits.AnyAsync(e => e.Id == id);
+            return await _banks.AnyAsync(e => e.Id == id);
         }
     }
 }

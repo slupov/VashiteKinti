@@ -1,18 +1,18 @@
 [
   {
     "InvestmentType": "0",
-    "BankId": "0"
+    "BankId": "1"
   },
   {
-    "InvestmentType": "0",
-    "BankId": "0"
+    "InvestmentType": "1",
+    "BankId": "1"
   },
   {
-    "InvestmentType": "0",
-    "BankId": "0"
+    "InvestmentType": "2",
+    "BankId": "1"
   },
   {
-    "InvestmentType": "0",
-    "BankId": "0"
+    "InvestmentType": "3",
+    "BankId": "1"
   }
 ]

@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using VashiteKinti.Data.EntityConfigs;
 using VashiteKinti.Data.Models;
 
@@ -33,6 +34,14 @@ namespace VashiteKinti.Data
 
             builder.ApplyConfiguration(new InsuranceConfiguration());
             builder.ApplyConfiguration(new InvestmentConfiguration());
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+//            optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId
+//                .DetachedLazyLoadingWarning));
         }
     }
 }

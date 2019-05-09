@@ -1,4 +1,5 @@
-﻿@model VashiteKinti.Data.Models.Deposit
+﻿@using VashiteKinti.Data.Enums
+@model VashiteKinti.Data.Models.Deposit
 
 @{
     ViewData["Title"] = "Create";
@@ -14,7 +15,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="BankId" class="control-label"></label>
-                <select asp-for="BankId" class ="form-control" asp-items="ViewBag.BankId"></select>
+                <select asp-for="BankId" class="form-control" asp-items="ViewBag.BankId"></select>
+                <span asp-validation-for="BankId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -33,12 +35,16 @@
             </div>
             <div class="form-group">
                 <label asp-for="PaymentMethod" class="control-label"></label>
-                <select asp-for="PaymentMethod" class="form-control"></select>
+                @Html.DropDownList("PaymentMethod",
+                    Html.GetEnumSelectList<InterestPaymentMethod>(),
+                    "Select Payment method", new {@class = "form-control"})
                 <span asp-validation-for="PaymentMethod" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Currency" class="control-label"></label>
-                <select asp-for="Currency" class="form-control"></select>
+                @Html.DropDownList("Currency",
+                    Html.GetEnumSelectList<Currency>(),
+                    "Select Currency", new {@class = "form-control"})
                 <span asp-validation-for="Currency" class="text-danger"></span>
             </div>
             <div class="form-group">

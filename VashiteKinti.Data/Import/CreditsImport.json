@@ -1,18 +1,18 @@
 [
   {
     "CreditType": "0",
-    "BankId": "0"
+    "BankId": "1"
+  },
+  {
+    "CreditType": "1",
+    "BankId": "1"
   },
   {
     "CreditType": "0",
-    "BankId": "0"
+    "BankId": "2"
   },
   {
-    "CreditType": "0",
-    "BankId": "0"
-  },
-  {
-    "CreditType": "0",
-    "BankId": "0"
+    "CreditType": "1",
+    "BankId": "2"
   }
 ]

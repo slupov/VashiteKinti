@@ -111,7 +111,7 @@ namespace VashiteKinti
 
                 CreateRoles(serviceProvider).Wait();
                 //TODO STOYAN LUPOV - Uncomment when json files are populated with valid data
-//                context.EnsureSeedData();
+                context.EnsureSeedData();
             }
         }
 

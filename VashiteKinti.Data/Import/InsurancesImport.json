@@ -1,18 +1,18 @@
 [
   {
     "InsuranceType": "0",
-    "BankId": "0"
+    "BankId": "1"
   },
   {
-    "InsuranceType": "0",
-    "BankId": "0"
+    "InsuranceType": "1",
+    "BankId": "1"
   },
   {
-    "InsuranceType": "0",
-    "BankId": "0"
+    "InsuranceType": "2",
+    "BankId": "1"
   },
   {
-    "InsuranceType": "0",
-    "BankId": "0"
+    "InsuranceType": "3",
+    "BankId": "1"
   }
 ]
