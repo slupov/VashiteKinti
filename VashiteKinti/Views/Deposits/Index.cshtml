@@ -1,10 +1,28 @@
-﻿@model IEnumerable<VashiteKinti.Data.Models.Deposit>
+﻿@model VashiteKinti.Web.Models.DepositEditViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Каталог депозити</h1>
+
+
+<div class="selectors-container">
+    <div class="row clearfix">
+        <div class="col-xs-12 col-sm-3 col-md-2 sc-heading">
+            <h5>Филтрирай по:</h5>
+        </div>
+        <div class="col-xs-5 col-sm-3 col-md-3 input-holder">
+            @Html.LabelFor(x=> x.Currencies)
+            @Html.DropDownListFor(x => Model.Currencies, Model.Currencies, htmlAttributes: new { @class = "form-control", id = "Country" })
+        </div>
+        <div class="col-xs-6 col-sm-5 col-md-5 input-holder">
+            @Html.LabelFor(x => x.Interests)
+            @Html.DropDownListFor(x => Model.Interests, Model.Interests, htmlAttributes: new { @class = "form-control", id = "Interests" })
+        </div>
+    </div>
+</div>
+
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,28 +31,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Bank.Name)
+                @Html.DisplayNameFor(model => model.Deposits[0].Bank.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Deposits[0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MinAmount)
+                @Html.DisplayNameFor(model => model.Deposits[0].MinAmount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Interest)
+                @Html.DisplayNameFor(model => model.Deposits[0].Interest)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PaymentMethod)
+                @Html.DisplayNameFor(model => model.Deposits[0].PaymentMethod)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Currency)
+                @Html.DisplayNameFor(model => model.Deposits[0].Currency)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Deposits) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Bank.Name)
