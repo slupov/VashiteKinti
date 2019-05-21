@@ -21,12 +21,12 @@ namespace VashiteKinti.Services
 
         public virtual Task<List<T>> GetAllAsync()
         {
-            return _dbSet.AsNoTracking().ToListAsync<T>();
+            return _dbSet.ToListAsync<T>();
         }
 
         public virtual Task<List<T>> GetListAsync(Func<T, bool> where)
         {
-            return Task.Run(() => _dbSet.AsNoTracking().AsEnumerable().Where(where).ToList());
+            return Task.Run(() => _dbSet.AsEnumerable().Where(where).ToList());
         }
 
         public virtual Task<T> GetSingleOrDefaultAsync(Expression<Func<T, bool>> where)
