@@ -5,6 +5,8 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using VashiteKinti.Data;
+using VashiteKinti.Data.Enums;
+using VashiteKinti.Data.Models;
 
 namespace VashiteKinti.Services
 {
@@ -23,7 +25,13 @@ namespace VashiteKinti.Services
         {
             return _dbSet.ToListAsync<T>();
         }
-
+        public Task<List<Deposit>> GetFilteredDeposits(string currencyId, string interestId)
+        {
+            var currency = (Currency)Enum.Parse(typeof(Currency), currencyId);
+            var interest = (InterestPaymentMethod)Enum.Parse(typeof(InterestPaymentMethod), interestId);
+            var data = context.Deposits.Where(x => x.Currency == currency && x.PaymentMethod == interest).ToList();
+            return Task.FromResult(data);
+        }
         public virtual Task<List<T>> GetListAsync(Func<T, bool> where)
         {
             return Task.Run(() => _dbSet.AsEnumerable().Where(where).ToList());

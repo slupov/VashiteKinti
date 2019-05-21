@@ -34,5 +34,7 @@ namespace VashiteKinti.Web.Models
         new SelectListItem { Value = "ON_PERIOD_END", Text = "На край на период"  },
     };
 
+        public string CurrencyId { get; set; }
+        public string InterestId { get; set; }
     }
 }

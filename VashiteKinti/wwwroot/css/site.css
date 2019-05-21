@@ -5,7 +5,9 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+
 }
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -46,13 +48,18 @@ body {
   margin-bottom: 60px;
 }
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background: #313437;
+}
+
+#footer-text{
+    color:white;
 }
 
 
@@ -61,4 +68,15 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     /*padding: 0 0 14%;*/
+}
+
+.filter-form{
+    margin-top:3%;
+}
+
+.deposits-catalogue {
+    margin-top: 5%;
+}
+#btn-submit-deposits-filter{
+    margin-top:3%;
 }

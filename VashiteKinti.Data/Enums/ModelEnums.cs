@@ -18,6 +18,7 @@ namespace VashiteKinti.Data.Enums
         EUR,
         USD,
         GBP,
+        CHF,
         JPY
     }
 
