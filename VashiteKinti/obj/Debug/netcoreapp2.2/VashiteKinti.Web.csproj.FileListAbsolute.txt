@@ -44,3 +44,4 @@ D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti\obj\Debug\netcoreapp2.2\Vashit
 D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti\obj\Debug\netcoreapp2.2\VashiteKinti.Web.csproj.CopyComplete
 D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti\obj\Debug\netcoreapp2.2\VashiteKinti.Web.dll
 D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti\obj\Debug\netcoreapp2.2\VashiteKinti.Web.pdb
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti\obj\Debug\netcoreapp2.2\Razor\Views\Deposits\Deposits.g.cshtml.cs

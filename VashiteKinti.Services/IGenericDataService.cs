@@ -16,6 +16,10 @@ namespace VashiteKinti.Services
         Task<T> GetSingleOrDefaultAsync(Expression<Func<T, bool>> where);
         Task<List<Deposit>> GetFilteredDeposits(string currencyId, string interestId);
 
+        Task<List<Deposit>> SearchDepositsByCriterias(int depositSize, string currency, string depositPeriod, 
+            string interest, string depositHolder, string interestType, string extraMoneyPayIn,
+            string overdraftOpportunity, string creditOpportunity);
+
         T GetSingleOrDefault(Expression<Func<T, bool>> where);
 
         void Add(params T[] items);

@@ -1,0 +1,14 @@
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti.Tests\bin\Debug\netcoreapp2.2\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti.Tests\bin\Debug\netcoreapp2.2\xunit.runner.reporters.netcoreapp10.dll
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti.Tests\bin\Debug\netcoreapp2.2\xunit.runner.utility.netcoreapp10.dll
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti.Tests\bin\Debug\netcoreapp2.2\VashiteKinti.Tests.deps.json
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti.Tests\bin\Debug\netcoreapp2.2\VashiteKinti.Tests.runtimeconfig.json
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti.Tests\bin\Debug\netcoreapp2.2\VashiteKinti.Tests.runtimeconfig.dev.json
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti.Tests\bin\Debug\netcoreapp2.2\VashiteKinti.Tests.dll
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti.Tests\bin\Debug\netcoreapp2.2\VashiteKinti.Tests.pdb
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti.Tests\obj\Debug\netcoreapp2.2\VashiteKinti.Tests.csprojAssemblyReference.cache
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti.Tests\obj\Debug\netcoreapp2.2\VashiteKinti.Tests.csproj.CoreCompileInputs.cache
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti.Tests\obj\Debug\netcoreapp2.2\VashiteKinti.Tests.AssemblyInfoInputs.cache
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti.Tests\obj\Debug\netcoreapp2.2\VashiteKinti.Tests.AssemblyInfo.cs
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti.Tests\obj\Debug\netcoreapp2.2\VashiteKinti.Tests.dll
+D:\GitHubProjects\VashiteKintiStoyan\VashiteKinti.Tests\obj\Debug\netcoreapp2.2\VashiteKinti.Tests.pdb

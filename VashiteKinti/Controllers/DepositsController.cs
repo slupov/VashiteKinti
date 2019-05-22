@@ -173,5 +173,31 @@ namespace VashiteKinti.Web.Controllers
         {
             return await _deposits.AnyAsync(e => e.Id == id);
         }
+
+
+
+        //Deposits
+        public async Task<IActionResult> SearchDeposits()
+        {
+            DepositEditViewModel viewModel = new DepositEditViewModel();
+            viewModel.Deposits = await _deposits.GetAllAsync();
+            viewModel.Deposits = viewModel.Deposits.OrderByDescending(x => x.Interest).ToList();
+            //viewModel.Deposits.First().Interest = 5;
+            return View("Deposits",viewModel);
+        }
+
+        public async Task<IActionResult> FilterDeposits(DepositEditViewModel vm)
+        {
+            DepositEditViewModel viewModel = new DepositEditViewModel();
+            viewModel.Deposits = await _deposits.SearchDepositsByCriterias(vm.DepositSize,vm.CurrencyId, 
+                                                                            vm.DepositPeriodId,vm.InterestId,
+                                                                            vm.DepositHolderId,vm.InterestTypeId,
+                                                                            vm.ExtraMoneyPayInId,vm.OverdraftOpportunityId,
+                                                                            vm.CreditOpportunityId);
+
+            viewModel.Deposits = viewModel.Deposits.OrderByDescending(x => x.Interest).ToList();
+            //viewModel.Deposits.First().Interest = 5;
+            return View("Deposits", viewModel);
+        }
     }
 }

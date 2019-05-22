@@ -89,3 +89,20 @@ body {
     width:60px;
     height:60px;
 }
+
+
+.selectors-container {
+    margin: auto;
+    width: 50%;
+    margin-bottom:3%;
+}
+
+.deposits-heading{
+    text-align:center;
+}
+
+#btn-submit-deposits {
+    margin: auto;
+    width: 50%;
+    margin-top: 5%;
+}

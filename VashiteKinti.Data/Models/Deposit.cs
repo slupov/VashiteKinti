@@ -26,5 +26,28 @@ namespace VashiteKinti.Data.Models
 
         [DisplayName("Валута")]
         public Currency Currency { get; set; }
+
+        [DisplayName("Размер на депозита")]
+        public int Size { get; set; }
+
+        [DisplayName("Период на депозита")]
+        public int Period { get; set; }
+
+        [DisplayName("За кого е депозита")]
+        public DepositHolder Holder { get; set; }
+
+        [DisplayName("Вид лихва")]
+        public InterestType InterestType { get; set; }
+
+        [DisplayName("Довнасяне на суми")]
+        public YesNoDoesntMatter ExtraMoneyPayIn { get; set; }
+
+        [DisplayName("Възможност за овърдрафт")]
+        public YesNoDoesntMatter OverdraftOpportunity { get; set; }
+
+        [DisplayName("Възможност за кредит")]
+        public YesNoDoesntMatter CreditOpportunity { get; set; }
+
+
     }
 }
