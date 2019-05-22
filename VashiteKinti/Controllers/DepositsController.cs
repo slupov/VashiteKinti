@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using VashiteKinti.Data;
 using VashiteKinti.Data.Models;
 using VashiteKinti.Services;
-using VashiteKinti.Services.Services;
 using VashiteKinti.Web.Models;
 
 namespace VashiteKinti.Web.Controllers
@@ -30,7 +29,7 @@ namespace VashiteKinti.Web.Controllers
         {
             DepositEditViewModel viewModel = new DepositEditViewModel();
             viewModel.Deposits = await _deposits.GetAllAsync();
-            viewModel.Deposits.OrderByDescending(x => x.Interest);
+            viewModel.Deposits = viewModel.Deposits.OrderByDescending(x => x.Interest).ToList();
             //viewModel.Deposits.First().Interest = 5;
             return View(viewModel);
         }
@@ -39,7 +38,7 @@ namespace VashiteKinti.Web.Controllers
         {
             DepositEditViewModel viewModel = new DepositEditViewModel();
             viewModel.Deposits = await _deposits.GetFilteredDeposits(vm.CurrencyId, vm.InterestId);
-            viewModel.Deposits.OrderByDescending(x => x.Interest);
+            viewModel.Deposits = viewModel.Deposits.OrderByDescending(x => x.Interest).ToList();
 
             return View("Index", viewModel);
         }

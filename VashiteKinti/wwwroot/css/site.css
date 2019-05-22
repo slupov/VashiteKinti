@@ -80,3 +80,12 @@ body {
 #btn-submit-deposits-filter{
     margin-top:3%;
 }
+
+#profitable {
+    font-weight: bold;
+}
+
+.bank-img{
+    width:60px;
+    height:60px;
+}
