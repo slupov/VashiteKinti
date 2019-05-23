@@ -5,10 +5,10 @@
 }
 <link rel="stylesheet" href="~/css/site.css" />
 
-<h1 class="deposits-heading">
+<h1 class="deposits-heading" id="text-orange">
     Депозит
 </h1>
-<h2 class="deposits-heading">
+<h2 class="deposits-heading" id="text-orange">
     намерете най-добрата оферта
 </h2>
 
@@ -16,39 +16,39 @@
     <div class="selectors-container">
         <div class="row clearfix col-md-12">
             <div class="col-xs-5 col-sm-6 col-md-6 input-holder">
-                @Html.LabelFor(x => x.DepositSize)
+                @Html.LabelFor(x => x.DepositSize, new {@id = "text-blue" })
                 <input class="form-control" asp-for="DepositSize">
             </div>
             <div class="col-xs-5 col-sm-6 col-md-6 input-holder">
-                @Html.LabelFor(x => x.Currencies)
+                @Html.LabelFor(x => x.Currencies, new { @id = "text-blue" })
                 @Html.DropDownListFor(x => Model.CurrencyId, Model.Currencies, htmlAttributes: new { @class = "form-control", id = "currencyCode", name = "currencyCode" })
             </div>
             <div class="col-xs-5 col-sm-6 col-md-6 input-holder">
-                @Html.LabelFor(x => x.DepositPeriod)
+                @Html.LabelFor(x => x.DepositPeriod, new { @id = "text-blue" })
                 @Html.DropDownListFor(x => Model.DepositPeriodId, Model.DepositPeriod, htmlAttributes: new { @class = "form-control", id = "depositPeriod", name = "depositPeriod" })
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 input-holder">
-                @Html.LabelFor(x => x.Interests)
+                @Html.LabelFor(x => x.Interests, new { @id = "text-blue" })
                 @Html.DropDownListFor(x => Model.InterestId, Model.Interests, htmlAttributes: new { @class = "form-control", id = "interestCode", name = "interestCode" })
             </div>
             <div class="col-xs-12 col-sm12 col-md-12 input-holder">
-                @Html.LabelFor(x => x.DepositHolder)
+                @Html.LabelFor(x => x.DepositHolder, new { @id = "text-blue" })
                 @Html.DropDownListFor(x => Model.DepositHolderId, Model.DepositHolder, htmlAttributes: new { @class = "form-control", id = "depositHolder", name = "depositHolder" })
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 input-holder">
-                @Html.LabelFor(x => x.InterestType)
+                @Html.LabelFor(x => x.InterestType, new { @id = "text-blue" })
                 @Html.DropDownListFor(x => Model.InterestTypeId, Model.InterestType, htmlAttributes: new { @class = "form-control", id = "interestType", name = "interestType" })
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 input-holder">
-                @Html.LabelFor(x => x.ExtraMoneyPayIn)
+                @Html.LabelFor(x => x.ExtraMoneyPayIn, new { @id = "text-blue" })
                 @Html.DropDownListFor(x => Model.ExtraMoneyPayInId, Model.ExtraMoneyPayIn, htmlAttributes: new { @class = "form-control", id = "extraMoneyPayIn", name = "extraMoneyPayIn" })
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 input-holder">
-                @Html.LabelFor(x => x.OverdraftOpportunity)
+                @Html.LabelFor(x => x.OverdraftOpportunity, new { @id = "text-blue" })
                 @Html.DropDownListFor(x => Model.OverdraftOpportunityId, Model.OverdraftOpportunity, htmlAttributes: new { @class = "form-control", id = "overdraftOpportunity", name = "overdraftOpportunity" })
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 input-holder">
-                @Html.LabelFor(x => x.CreditOpportunity)
+                @Html.LabelFor(x => x.CreditOpportunity, new { @id = "text-blue" })
                 @Html.DropDownListFor(x => Model.CreditOpportunityId, Model.CreditOpportunity, htmlAttributes: new { @class = "form-control", id = "creditOpportunity", name = "creditOpportunity" })
             </div>
 

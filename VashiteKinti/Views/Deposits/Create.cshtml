@@ -5,12 +5,11 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1 id="text-orange">Добавяне на депозит</h1>
 
-<h4>Deposit</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="selectors-container">
+    <div class="col-md-12">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -37,26 +36,27 @@
                 <label asp-for="PaymentMethod" class="control-label"></label>
                 @Html.DropDownList("PaymentMethod",
                     Html.GetEnumSelectList<InterestPaymentMethod>(),
-                    "Select Payment method", new {@class = "form-control"})
+                    "Изберете метод за изплащане на лихви", new {@class = "form-control"})
                 <span asp-validation-for="PaymentMethod" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Currency" class="control-label"></label>
                 @Html.DropDownList("Currency",
                     Html.GetEnumSelectList<Currency>(),
-                    "Select Currency", new {@class = "form-control"})
+                    "Изберете валута", new {@class = "form-control"})
                 <span asp-validation-for="Currency" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Създаване" class="btn btn-warning" />
+            </div>
+            <div>
+                <a asp-action="Index">Назад</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

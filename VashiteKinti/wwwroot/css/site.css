@@ -106,3 +106,24 @@ body {
     width: 50%;
     margin-top: 5%;
 }
+
+#btn-save-edit {
+    margin: auto;
+    width: 50%;
+}
+
+#text-orange {
+    color: #f37d49;
+}
+#text-blue {
+    color: black;
+}
+
+#text-red {
+    color: darkred;
+}
+
+#btn-add{
+    margin-top:2%;
+    margin-bottom:1%;   
+}
