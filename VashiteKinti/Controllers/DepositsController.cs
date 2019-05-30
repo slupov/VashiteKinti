@@ -64,9 +64,7 @@ namespace VashiteKinti.Web.Controllers
         // GET: Deposits/Create
         public async Task<IActionResult> Create()
         {
-            IEnumerable<Bank> banks = new List<Bank>();
-            banks = await _banks.GetAllAsync();
-
+            var banks = await _banks.GetAllAsync();
             ViewBag.ListOfBanks = banks;
 
             return View();
@@ -77,12 +75,11 @@ namespace VashiteKinti.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,BankId,Name,MinAmount,Interest,PaymentMethod,Currency")] Deposit deposit)
+        public async Task<IActionResult> Create(Deposit deposit)
         {
             if (ModelState.IsValid)
             {
                 _deposits.Add(deposit);
-
                 return RedirectToAction(nameof(Index));
             }
 

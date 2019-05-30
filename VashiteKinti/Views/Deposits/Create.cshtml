@@ -13,8 +13,9 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="BankId" class="control-label"></label>
-                <select asp-for="BankId" class="form-control" asp-items="ViewBag.BankId"></select>
+                <label class="control-label">Име на Банка</label>
+                <select asp-for="BankId" class="form-control"
+                        asp-items="@(new SelectList(ViewBag.ListOfBanks, "Id", "Name"))"></select>
                 <span asp-validation-for="BankId" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using VashiteKinti.Data.Enums;
+using VashiteKinti.Data.Models;
+using VashiteKinti.Web.Models.Automapper;
 
-namespace VashiteKinti.Data.Models
+namespace VashiteKinti.Web.Models
 {
-    public class Deposit
+    public class DepositCreateViewModel : IMapFrom<Deposit>
     {
-        public int Id { get; set; }
-
-        [DisplayName("Банка")]
-        public virtual Bank Bank { get; set; }
-        public int BankId { get; set; }
+        [DisplayName("Име на банка")]
+        public String BankName { get; set; }
 
         [DisplayName("Име на депозит")]
         public String Name { get; set; }
