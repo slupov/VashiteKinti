@@ -95,11 +95,14 @@ namespace VashiteKinti.Web.Controllers
             }
 
             var deposit = await _deposits.GetSingleOrDefaultAsync(x => x.Id == id);
-            deposit.BankId = 1;
+
             if (deposit == null)
             {
                 return NotFound();
             }
+
+            var banks = await _banks.GetAllAsync();
+            ViewBag.ListOfBanks = banks;
 
             return View(deposit);
         }
@@ -109,7 +112,7 @@ namespace VashiteKinti.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BankId,Name,MinAmount,Interest,PaymentMethod,Currency")] Deposit deposit)
+        public async Task<IActionResult> Edit(int id, Deposit deposit)
         {
             if (id != deposit.Id)
             {
@@ -133,8 +136,10 @@ namespace VashiteKinti.Web.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(deposit);
         }
 

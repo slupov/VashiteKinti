@@ -1,8 +1,11 @@
 ﻿@using VashiteKinti.Data.Enums
+@using VashiteKinti.Data.Models
 @model VashiteKinti.Data.Models.Deposit
 
 @{
     ViewData["Title"] = "Редакция на депозит";
+
+    var banksSelectList = new SelectList(ViewBag.ListOfBanks, "Id", "Name", Model.Bank.Name);
 }
 
 <h1 id="text-orange">Редакция на депозит</h1>
@@ -14,8 +17,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="BankId" class="control-label"></label>
-                <input asp-for="BankId" class="form-control" asp-items="ViewBag.BankId"/>
+                <label class="control-label">Име на Банка</label>
+                <select asp-for="BankId" class="form-control"
+                        asp-items="@banksSelectList"></select>
                 <span asp-validation-for="BankId" class="text-danger"></span>
             </div>
             <div class="form-group">
