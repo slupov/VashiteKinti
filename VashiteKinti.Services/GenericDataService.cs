@@ -32,6 +32,54 @@ namespace VashiteKinti.Services
             var data = context.Deposits.Where(x => x.Currency == currency && x.PaymentMethod == interest).ToList();
             return Task.FromResult(data);
         }
+
+        public Task<List<Deposit>> SearchDepositsByCriterias(int depositSize, string currency, string depositPeriod,
+            string interest, string depositHolder, string interestType, string extraMoneyPayIn,
+            string overdraftOpportunity, string creditOpportunity)
+            {
+            var currencyValue = (Currency)Enum.Parse(typeof(Currency), currency);
+            var interestValue = (InterestPaymentMethod)Enum.Parse(typeof(InterestPaymentMethod), interest);
+            var depositPeriodValue = int.Parse(depositPeriod);
+            var depositHolderValue = (DepositHolder)Enum.Parse(typeof(DepositHolder), depositHolder);
+            var extraMoneyPayInValue = (YesNoDoesntMatter)Enum.Parse(typeof(YesNoDoesntMatter), extraMoneyPayIn);
+            var overdraftOpportunityValue = (YesNoDoesntMatter)Enum.Parse(typeof(YesNoDoesntMatter), overdraftOpportunity);
+            var creditOpportunityValue = (YesNoDoesntMatter)Enum.Parse(typeof(YesNoDoesntMatter), creditOpportunity);
+            var interestTypeValue = (InterestType)Enum.Parse(typeof(InterestType), interestType);
+
+            var filter = context.Deposits.Where(x => x.Currency == currencyValue);
+            filter = filter.Where(x => x.PaymentMethod == interestValue);
+            filter = filter.Where(x => x.MinAmount <= depositSize);
+
+            if (depositHolderValue != DepositHolder.DOESNT_MATTER)
+            {
+                filter = filter.Where(x => x.Holder == depositHolderValue);
+
+            }
+            if (extraMoneyPayInValue != YesNoDoesntMatter.DOESNT_MATTER)
+            {
+                filter = filter.Where(x => x.ExtraMoneyPayIn == extraMoneyPayInValue);
+
+            }
+            if (overdraftOpportunityValue != YesNoDoesntMatter.DOESNT_MATTER)
+            {
+                filter = filter.Where(x => x.OverdraftOpportunity == overdraftOpportunityValue);
+
+            }
+            if (creditOpportunityValue != YesNoDoesntMatter.DOESNT_MATTER)
+            {
+                filter = filter.Where(x => x.CreditOpportunity == creditOpportunityValue);
+
+            }
+            if (interestTypeValue != InterestType.DOESNT_MATTER)
+            {
+                filter = filter.Where(x => x.InterestType == interestTypeValue);
+
+            }
+
+
+            return Task.FromResult(filter.ToList());
+            }
+
         public virtual Task<List<T>> GetListAsync(Func<T, bool> where)
         {
             return Task.Run(() => _dbSet.AsEnumerable().Where(where).ToList());

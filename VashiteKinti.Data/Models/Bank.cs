@@ -8,7 +8,7 @@ namespace VashiteKinti.Data.Models
     public class Bank
     {
         public int Id { get; set; }
-        [DisplayName("Банка")]
+        [DisplayName("Име на банка")]
         public String Name { get; set; }
 
         public virtual IList<Deposit> Deposits { get; set; }

@@ -5,10 +5,10 @@
 }
 <link rel="stylesheet" href="~/css/site.css" />
 
-<h1 class="deposits-catalogue">Каталог депозити</h1>
+<h1 class="deposits-catalogue" id="text-orange">Каталог депозити</h1>
 
 <form method="post" class="filter-form">
-    <div class="selectors-container">
+    <div class="selectors-container-filter">
         <div class="row clearfix">
             <div class="col-xs-12 col-sm-3 col-md-2 sc-heading">
                 <h5>Филтрирай по:</h5>
@@ -30,11 +30,14 @@
 
 </form>
 <p>
-    @*<a asp-action="Create">Създай депозит</a>*@
+    <a asp-action="Create">Създай депозит</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Deposits[0].Bank.Name)
             </th>
@@ -62,69 +65,78 @@
     <tbody>
         @foreach (var item in Model.Deposits)
         {
-            if (item.Interest > 4)
+            if (item.Interest >= 3.5)
             {
-                <tr class="alert-success">
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Bank.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MinAmount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Interest)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PaymentMethod)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Currency)
-                    </td>
-                    <td>
-                        <a class="btn btn-success" asp-action="Details" asp-route-id="@item.Id">Изчисли</a>
-                    </td>
+        <tr class="alert-success">
+            <td>
+                <img class="bank-img" src="@Url.Content("~/images/"+ item.Bank.Name + ".jpg")" />            
+            </td>
 
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr> 
+
+            <td id="profitable">
+                @Html.DisplayFor(modelItem => item.Bank.Name)
+            </td>
+            <td id="profitable">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinAmount)
+            </td>
+            <td id="profitable">
+                @Html.DisplayFor(modelItem => item.Interest)
+            </td>
+            <td id="profitable">
+                @Html.DisplayFor(modelItem => item.PaymentMethod)
+            </td>
+            <td id="profitable">
+                @Html.DisplayFor(modelItem => item.Currency)
+            </td>
+            <td>
+                <a class="btn btn-success" asp-action="Details" asp-route-id="@item.Id">Изчисли</a>
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr> 
             }
             else
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Bank.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MinAmount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Interest)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PaymentMethod)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Currency)
-                    </td>
-                    <td>
-                        <a class="btn btn-success" asp-action="Details" asp-route-id="@item.Id">Изчисли</a>
-                    </td>
+        <tr>
 
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>}
+            <td>
+                <img class="bank-img" src="@Url.Content("~/images/"+ item.Bank.Name + ".jpg")" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bank.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Interest)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency)
+            </td>
+            <td>
+                <a class="btn btn-success" asp-action="Details" asp-route-id="@item.Id">Изчисли</a>
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>}
 
         }
     </tbody>
