@@ -34,5 +34,36 @@ namespace VashiteKinti.Tests
 
             Assert.Equal(2, result);
         }
+        [Fact]
+        
+        public void ShouldUpdateItems()
+        {
+            var db = VashiteKinti.Tests.Tests.GetDatabase();
+
+            var item1 = new Bank()
+            {
+                Name = "ProCreditBank",
+
+            };
+
+            var item2 = new Bank()
+            {
+                Name = "DSK",
+            };
+
+            var items = new GenericDataService<Bank>(db);
+
+            items.Add(item1, item2);
+
+
+            item1.Name = "Updated";
+
+            items.Update(item1);
+
+            var editItem = db.Banks.FirstOrDefault(x => x.Name == item1.Name);
+
+            Assert.Equal(item1.Name, editItem.Name);
+        }
+
     }
 }
