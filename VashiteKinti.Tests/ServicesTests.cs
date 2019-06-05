@@ -64,6 +64,33 @@ namespace VashiteKinti.Tests
 
             Assert.Equal(item1.Name, editItem.Name);
         }
+        [Fact]
+
+        public void ShouldRemoveItem()
+        
+        {
+            var db = VashiteKinti.Tests.Tests.GetDatabase();
+
+            var item1 = new Bank()
+            {
+                Name="ProCreditBank"
+            };
+
+
+
+
+
+            var items = new GenericDataService<Bank>(db);
+
+            db.Banks.Add(item1);
+            db.SaveChanges();
+
+            items.Remove(item1);
+
+            var editItem = db.Banks.FirstOrDefault();
+
+            Assert.Null(editItem);
+        }
 
     }
 }
