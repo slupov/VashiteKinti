@@ -92,5 +92,58 @@ namespace VashiteKinti.Tests
             Assert.Null(editItem);
         }
 
+        [Fact]
+        public void ShouldGetAll()
+        {
+            var db = VashiteKinti.Tests.Tests.GetDatabase();
+
+            var item1 = new Bank()
+            {
+                Name = "ProCreditBank",
+
+            };
+
+            var item2 = new Bank()
+            {
+                Name = "DSK",
+            };
+
+            var items = new GenericDataService<Bank>(db);
+
+            db.Banks.Add(item1);
+            db.SaveChanges();
+
+            var result = items.GetAllAsync();
+
+            Assert.NotNull(result);
+        }
+
+
+        [Fact]
+        public void ShouldCheckIfThereIsAnyBank()
+        {
+            var db = VashiteKinti.Tests.Tests.GetDatabase();
+
+            var item1 = new Bank()
+            {
+                Name = "ProCreditBank",
+
+            };
+
+            var item2 = new Bank()
+            {
+                Name = "DSK",
+            };
+
+            var items = new GenericDataService<Bank>(db);
+
+            db.Banks.Add(item1);
+            db.SaveChanges();
+
+            var result = items.AnyAsync();
+
+            result.Result.Should().BeTrue();
+        }
+
     }
 }
