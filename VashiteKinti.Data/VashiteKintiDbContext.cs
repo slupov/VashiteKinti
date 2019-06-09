@@ -40,6 +40,10 @@ namespace VashiteKinti.Data
         {
             base.OnConfiguring(optionsBuilder);
 
+            //set the default connection string
+            optionsBuilder.UseSqlServer(
+                "Server=(LocalDb)\\MSSQLLocalDB;Database=VashiteKintiDB;Trusted_Connection=True;MultipleActiveResultSets=true");
+
 //            optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId
 //                .DetachedLazyLoadingWarning));
         }
