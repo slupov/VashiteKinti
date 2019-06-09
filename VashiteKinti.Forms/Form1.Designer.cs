@@ -41,17 +41,19 @@ namespace VashiteKinti.Forms
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.depositNameTextBox = new System.Windows.Forms.TextBox();
+            this.bankComboBox = new System.Windows.Forms.ComboBox();
+            this.interestTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.currencyComboBox = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.minSumNumUpDown = new System.Windows.Forms.NumericUpDown();
+            this.interestNumUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.minSumNumUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.interestNumUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -63,6 +65,7 @@ namespace VashiteKinti.Forms
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // label1
             // 
@@ -81,6 +84,7 @@ namespace VashiteKinti.Forms
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(624, 408);
             this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.CellContentClick += new DataGridViewCellEventHandler(this.dgv_CellContentClick);
             // 
             // label2
             // 
@@ -146,50 +150,39 @@ namespace VashiteKinti.Forms
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox2
+            // depositNameTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(16, 291);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(243, 20);
-            this.textBox2.TabIndex = 11;
+            this.depositNameTextBox.Location = new System.Drawing.Point(16, 291);
+            this.depositNameTextBox.Name = "depositNameTextBox";
+            this.depositNameTextBox.Size = new System.Drawing.Size(243, 20);
+            this.depositNameTextBox.TabIndex = 11;
+            this.depositNameTextBox.Click += new System.EventHandler(this.depositNameTextBox_Clicked);
+            this.depositNameTextBox.MouseLeave += new System.EventHandler(this.depositNameTextBox_MouseLeave);
+
             // 
-            // textBox3
+            // bankComboBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(16, 337);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(243, 20);
-            this.textBox3.TabIndex = 12;
+            this.bankComboBox.FormattingEnabled = true;
+            this.bankComboBox.Location = new System.Drawing.Point(16, 244);
+            this.bankComboBox.Name = "bankComboBox";
+            this.bankComboBox.Size = new System.Drawing.Size(243, 21);
+            this.bankComboBox.TabIndex = 16;
             // 
-            // textBox4
+            // interestTypeComboBox
             // 
-            this.textBox4.Location = new System.Drawing.Point(16, 383);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(243, 20);
-            this.textBox4.TabIndex = 13;
+            this.interestTypeComboBox.FormattingEnabled = true;
+            this.interestTypeComboBox.Location = new System.Drawing.Point(16, 428);
+            this.interestTypeComboBox.Name = "interestTypeComboBox";
+            this.interestTypeComboBox.Size = new System.Drawing.Size(243, 21);
+            this.interestTypeComboBox.TabIndex = 17;
             // 
-            // comboBox1
+            // currencyComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(16, 244);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(243, 21);
-            this.comboBox1.TabIndex = 16;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(16, 428);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(243, 21);
-            this.comboBox2.TabIndex = 17;
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(16, 474);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(243, 21);
-            this.comboBox3.TabIndex = 18;
+            this.currencyComboBox.FormattingEnabled = true;
+            this.currencyComboBox.Location = new System.Drawing.Point(16, 474);
+            this.currencyComboBox.Name = "currencyComboBox";
+            this.currencyComboBox.Size = new System.Drawing.Size(243, 21);
+            this.currencyComboBox.TabIndex = 18;
             // 
             // button2
             // 
@@ -222,20 +215,50 @@ namespace VashiteKinti.Forms
             this.button4.Text = "Delete";
             this.button4.UseVisualStyleBackColor = false;
             // 
+            // minSumNumUpDown
+            // 
+            this.minSumNumUpDown.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.minSumNumUpDown.Location = new System.Drawing.Point(16, 338);
+            this.minSumNumUpDown.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.minSumNumUpDown.Name = "minSumNumUpDown";
+            this.minSumNumUpDown.Size = new System.Drawing.Size(243, 20);
+            this.minSumNumUpDown.TabIndex = 22;
+            // 
+            // interestNumUpDown
+            // 
+            this.interestNumUpDown.DecimalPlaces = 5;
+            this.interestNumUpDown.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.interestNumUpDown.Location = new System.Drawing.Point(16, 382);
+            this.interestNumUpDown.Name = "interestNumUpDown";
+            this.interestNumUpDown.Size = new System.Drawing.Size(243, 20);
+            this.interestNumUpDown.TabIndex = 23;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(948, 583);
+            this.Controls.Add(this.interestNumUpDown);
+            this.Controls.Add(this.minSumNumUpDown);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.currencyComboBox);
+            this.Controls.Add(this.interestTypeComboBox);
+            this.Controls.Add(this.bankComboBox);
+            this.Controls.Add(this.depositNameTextBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -246,10 +269,14 @@ namespace VashiteKinti.Forms
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.minSumNumUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.interestNumUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,15 +294,15 @@ namespace VashiteKinti.Forms
         private Label label6;
         private Label label7;
         private Button button1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TextBox textBox4;
-        private ComboBox comboBox1;
-        private ComboBox comboBox2;
-        private ComboBox comboBox3;
+        private TextBox depositNameTextBox;
+        private ComboBox bankComboBox;
+        private ComboBox interestTypeComboBox;
+        private ComboBox currencyComboBox;
         private Button button2;
         private Button button3;
         private Button button4;
+        private NumericUpDown minSumNumUpDown;
+        private NumericUpDown interestNumUpDown;
     }
 }
 

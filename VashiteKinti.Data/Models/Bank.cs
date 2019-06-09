@@ -8,6 +8,7 @@ namespace VashiteKinti.Data.Models
     public class Bank
     {
         public int Id { get; set; }
+
         [DisplayName("Име на банка")]
         public String Name { get; set; }
 
@@ -18,5 +19,10 @@ namespace VashiteKinti.Data.Models
 
         public virtual IList<Insurance> Insurances { get; set; }
         public virtual IList<Investment> Investments { get; set; }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }
