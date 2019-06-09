@@ -233,7 +233,13 @@ namespace VashiteKinti.Data.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int>("CreditOpportunity");
+
                     b.Property<int>("Currency");
+
+                    b.Property<int>("ExtraMoneyPayIn");
+
+                    b.Property<int>("Holder");
 
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -241,9 +247,17 @@ namespace VashiteKinti.Data.Migrations
 
                     b.Property<double>("Interest");
 
+                    b.Property<int>("InterestType");
+
                     b.Property<double>("MinAmount");
 
+                    b.Property<int>("OverdraftOpportunity");
+
                     b.Property<int>("PaymentMethod");
+
+                    b.Property<int>("Period");
+
+                    b.Property<int>("Size");
 
                     b.HasKey("BankId", "Name");
 

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using VashiteKinti.Data;
 using VashiteKinti.Data.Models;
 using VashiteKinti.Services;
+using VashiteKinti.Web.Models;
 
 namespace VashiteKinti.Web.Controllers
 {
@@ -26,9 +27,20 @@ namespace VashiteKinti.Web.Controllers
         // GET: Deposits
         public async Task<IActionResult> Index()
         {
-            var deposits = await _deposits.GetAllAsync();
+            DepositEditViewModel viewModel = new DepositEditViewModel();
+            viewModel.Deposits = await _deposits.GetAllAsync();
+            viewModel.Deposits = viewModel.Deposits.OrderByDescending(x => x.Interest).ToList();
+            //viewModel.Deposits.First().Interest = 5;
+            return View(viewModel);
+        }
 
-            return View(deposits);
+        public async Task<IActionResult> FilterCatalogueDeposits(DepositEditViewModel vm)
+        {
+            DepositEditViewModel viewModel = new DepositEditViewModel();
+            viewModel.Deposits = await _deposits.GetFilteredDeposits(vm.CurrencyId, vm.InterestId);
+            viewModel.Deposits = viewModel.Deposits.OrderByDescending(x => x.Interest).ToList();
+
+            return View("Index", viewModel);
         }
 
         // GET: Deposits/Details/5
@@ -52,9 +64,7 @@ namespace VashiteKinti.Web.Controllers
         // GET: Deposits/Create
         public async Task<IActionResult> Create()
         {
-            IEnumerable<Bank> banks = new List<Bank>();
-            banks = await _banks.GetAllAsync();
-
+            var banks = await _banks.GetAllAsync();
             ViewBag.ListOfBanks = banks;
 
             return View();
@@ -65,12 +75,11 @@ namespace VashiteKinti.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,BankId,Name,MinAmount,Interest,PaymentMethod,Currency")] Deposit deposit)
+        public async Task<IActionResult> Create(Deposit deposit)
         {
             if (ModelState.IsValid)
             {
                 _deposits.Add(deposit);
-
                 return RedirectToAction(nameof(Index));
             }
 
@@ -86,10 +95,14 @@ namespace VashiteKinti.Web.Controllers
             }
 
             var deposit = await _deposits.GetSingleOrDefaultAsync(x => x.Id == id);
+
             if (deposit == null)
             {
                 return NotFound();
             }
+
+            var banks = await _banks.GetAllAsync();
+            ViewBag.ListOfBanks = banks;
 
             return View(deposit);
         }
@@ -99,7 +112,7 @@ namespace VashiteKinti.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BankId,Name,MinAmount,Interest,PaymentMethod,Currency")] Deposit deposit)
+        public async Task<IActionResult> Edit(int id, Deposit deposit)
         {
             if (id != deposit.Id)
             {
@@ -123,8 +136,10 @@ namespace VashiteKinti.Web.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(deposit);
         }
 
@@ -159,6 +174,32 @@ namespace VashiteKinti.Web.Controllers
         private async Task<bool> DepositExists(int id)
         {
             return await _deposits.AnyAsync(e => e.Id == id);
+        }
+
+
+
+        //Deposits
+        public async Task<IActionResult> SearchDeposits()
+        {
+            DepositEditViewModel viewModel = new DepositEditViewModel();
+            viewModel.Deposits = await _deposits.GetAllAsync();
+            viewModel.Deposits = viewModel.Deposits.OrderByDescending(x => x.Interest).ToList();
+            //viewModel.Deposits.First().Interest = 5;
+            return View("Deposits",viewModel);
+        }
+
+        public async Task<IActionResult> FilterDeposits(DepositEditViewModel vm)
+        {
+            DepositEditViewModel viewModel = new DepositEditViewModel();
+            viewModel.Deposits = await _deposits.SearchDepositsByCriterias(vm.DepositSize,vm.CurrencyId, 
+                                                                            vm.DepositPeriodId,vm.InterestId,
+                                                                            vm.DepositHolderId,vm.InterestTypeId,
+                                                                            vm.ExtraMoneyPayInId,vm.OverdraftOpportunityId,
+                                                                            vm.CreditOpportunityId);
+
+            viewModel.Deposits = viewModel.Deposits.OrderByDescending(x => x.Interest).ToList();
+            //viewModel.Deposits.First().Interest = 5;
+            return View("Deposits", viewModel);
         }
     }
 }

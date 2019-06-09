@@ -113,7 +113,6 @@ namespace VashiteKinti
                 context.Database.Migrate();
 
                 CreateRoles(serviceProvider).Wait();
-                //TODO STOYAN LUPOV - Uncomment when json files are populated with valid data
                 context.EnsureSeedData();
             }
         }
@@ -152,7 +151,9 @@ namespace VashiteKinti
             {
                 var createSuperUser = await userManager.CreateAsync(superUser, userPwd);
                 if (createSuperUser.Succeeded)
+                {
                     await userManager.AddToRoleAsync(superUser, "Admin");
+                }
             }
         }
     }

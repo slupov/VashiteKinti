@@ -5,7 +5,9 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+
 }
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -46,11 +48,82 @@ body {
   margin-bottom: 60px;
 }
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background: #313437;
+}
+
+#footer-text{
+    color:white;
+}
+
+
+.row#home-image {
+    background-image: url(/images/porshca.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*padding: 0 0 14%;*/
+}
+
+.filter-form{
+    margin-top:3%;
+}
+
+.deposits-catalogue {
+    margin-top: 5%;
+}
+#btn-submit-deposits-filter{
+    margin-top:3%;
+}
+
+#profitable {
+    font-weight: bold;
+}
+
+.bank-img{
+    width:60px;
+    height:60px;
+}
+
+
+.selectors-container {
+    margin: auto;
+    width: 50%;
+    margin-bottom:3%;
+}
+
+.deposits-heading{
+    text-align:center;
+}
+
+#btn-submit-deposits {
+    margin: auto;
+    width: 50%;
+    margin-top: 5%;
+}
+
+#btn-save-edit {
+    margin: auto;
+    width: 50%;
+}
+
+#text-orange {
+    color: #f37d49;
+}
+#text-blue {
+    color: black;
+}
+
+#text-red {
+    color: darkred;
+}
+
+#btn-add{
+    margin-top:2%;
+    margin-bottom:1%;   
 }

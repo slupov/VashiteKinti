@@ -18,7 +18,30 @@ namespace VashiteKinti.Data.Enums
         EUR,
         USD,
         GBP,
+        CHF,
         JPY
+    }
+
+    public enum InterestType
+    {
+        DOESNT_MATTER = 0,
+        FIXED,
+        VARIABLE
+    }
+
+    public enum YesNoDoesntMatter
+    {
+        DOESNT_MATTER = 0,
+        YES,
+        NO
+    }
+
+    public enum DepositHolder
+    {
+        DOESNT_MATTER = 0,
+        INDIVIDUAL,
+        RETIRED,
+        CHILD
     }
 
     public enum CardTypes

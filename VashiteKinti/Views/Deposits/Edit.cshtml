@@ -1,22 +1,25 @@
 ﻿@using VashiteKinti.Data.Enums
+@using VashiteKinti.Data.Models
 @model VashiteKinti.Data.Models.Deposit
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редакция на депозит";
+
+    var banksSelectList = new SelectList(ViewBag.ListOfBanks, "Id", "Name", Model.Bank.Name);
 }
 
-<h1>Edit</h1>
+<h1 id="text-orange">Редакция на депозит</h1>
 
-<h4>Deposit</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="selectors-container">
+    <div class="col-md-12">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="BankId" class="control-label"></label>
-                <select asp-for="BankId" class="form-control" asp-items="ViewBag.BankId"></select>
+                <label class="control-label">Име на Банка</label>
+                <select asp-for="BankId" class="form-control"
+                        asp-items="@banksSelectList"></select>
                 <span asp-validation-for="BankId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -45,18 +48,18 @@
                 <label asp-for="Currency" class="control-label"></label>
                 @Html.DropDownList("Currency",
                     Html.GetEnumSelectList<Currency>(),
-                    "Select Currency", new {@class = "form-control"})
+                    "Изберете валута", new {@class = "form-control"})
                 <span asp-validation-for="Currency" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group" id="btn-save-edit">
+                <input type="submit" value="Запази" class="btn btn-warning"/>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Обратно към списъка</a>
 </div>
 
 @section Scripts {

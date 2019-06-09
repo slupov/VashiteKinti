@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using VashiteKinti.Data.Models;
 
 namespace VashiteKinti.Services
 {
@@ -13,6 +14,11 @@ namespace VashiteKinti.Services
         Task<List<T>> GetListAsync(Func<T, bool> where);
 
         Task<T> GetSingleOrDefaultAsync(Expression<Func<T, bool>> where);
+        Task<List<Deposit>> GetFilteredDeposits(string currencyId, string interestId);
+
+        Task<List<Deposit>> SearchDepositsByCriterias(int depositSize, string currency, string depositPeriod, 
+            string interest, string depositHolder, string interestType, string extraMoneyPayIn,
+            string overdraftOpportunity, string creditOpportunity);
 
         T GetSingleOrDefault(Expression<Func<T, bool>> where);
 

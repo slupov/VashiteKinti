@@ -3,32 +3,32 @@
     "PaymentMethod": "0",
     "Currency": "0",
     "BankId": "1",
-    "Interest": "0",
-    "MinAmount": "0",
+    "Interest": "5",
+    "MinAmount": "2500",
     "Name": "Very Good Deposit"
   },
   {
     "PaymentMethod": "0",
     "Currency": "0",
     "BankId": "1",
-    "Interest": "0",
-    "MinAmount": "0",
+    "Interest": "8",
+    "MinAmount": "20000",
     "Name": "A nice deposit"
   },
   {
     "PaymentMethod": "0",
     "Currency": "0",
     "BankId": "1",
-    "Interest": "0",
-    "MinAmount": "0",
+    "Interest": "2",
+    "MinAmount": "100",
     "Name": "A fair deposit plan for you"
   },
   {
     "PaymentMethod": "0",
     "Currency": "0",
     "BankId": "1",
-    "Interest": "0",
-    "MinAmount": "0",
+    "Interest": "4",
+    "MinAmount": "2400",
     "Name": "Do not choose this deposit plan"
   }
 ]
