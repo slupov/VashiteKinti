@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FastMember;
 using VashiteKinti.Data;
 using VashiteKinti.Data.Models;
 using VashiteKinti.Services;
@@ -16,10 +17,12 @@ namespace VashiteKinti.Forms
     public partial class Form1 : Form
     {
         private readonly IGenericDataService<Deposit> _deposits;
+        private readonly IGenericDataService<Bank> _banks;
 
-        public Form1(IGenericDataService<Deposit> deposits)
+        public Form1(IGenericDataService<Deposit> deposits, IGenericDataService<Bank> banks)
         {
             _deposits = deposits;
+            _banks    = banks;
 
             InitializeComponent();
         }
@@ -31,9 +34,26 @@ namespace VashiteKinti.Forms
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            var res = await _deposits.GetAllAsync();
+            dataGridView1.DataSource = await getDepositsDT();
 
-            MessageBox.Show("IBASI BA4KA!");
+            MessageBox.Show("Database logs successfuly retrieved.");
+        }
+
+        private async Task<DataTable> getDepositsDT()
+        {
+            DataTable dtDeposits = new DataTable();
+            IEnumerable<Deposit> data = await _deposits.GetAllAsync();
+
+            using (var reader = ObjectReader.Create(data))
+            {
+                dtDeposits.Load(reader);
+            }
+
+            var testB = data.First().Bank;
+            var testB2 = _banks.GetSingleOrDefault(x => x.Id == data.First().BankId);
+            var testB3 = (await _banks.GetAllAsync()).ToList();
+
+            return dtDeposits;
         }
     }
 }

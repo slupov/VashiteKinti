@@ -44,8 +44,10 @@ namespace VashiteKinti.Data
             optionsBuilder.UseSqlServer(
                 "Server=(LocalDb)\\MSSQLLocalDB;Database=VashiteKintiDB;Trusted_Connection=True;MultipleActiveResultSets=true");
 
-//            optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId
-//                .DetachedLazyLoadingWarning));
+            optionsBuilder.UseLazyLoadingProxies();
+
+            //            optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId
+            //                .DetachedLazyLoadingWarning));
         }
     }
 }

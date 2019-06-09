@@ -42,31 +42,17 @@ namespace VashiteKinti.Forms
             // Register your types, for instance:
             _container.Register<IGenericDataService<Bank>, GenericDataService<Bank>>(Lifestyle.Singleton);
             _container.Register<IGenericDataService<Deposit>, GenericDataService<Deposit>>(Lifestyle.Singleton);
-           
-            //
-            //container.Register<IGenericDataService<Card>, GenericDataService<Card>>(Lifestyle.Transient);
-            //container.Register<IGenericDataService<Credit>, GenericDataService<Credit>>(Lifestyle.Transient);
-            //
-            //container.Register<IGenericDataService<Insurance>, GenericDataService<Insurance>>(Lifestyle.Transient);
-            //container.Register<IGenericDataService<Investment>, GenericDataService<Investment>>(Lifestyle.Transient);
 
-//            _container.RegisterDisposableTransient<Form1>();
+            _container.Register<IGenericDataService<Card>, GenericDataService<Card>>(Lifestyle.Transient);
+            _container.Register<IGenericDataService<Credit>, GenericDataService<Credit>>(Lifestyle.Transient);
+
+            _container.Register<IGenericDataService<Insurance>, GenericDataService<Insurance>>(Lifestyle.Transient);
+            _container.Register<IGenericDataService<Investment>, GenericDataService<Investment>>(Lifestyle.Transient);
+
             _container.Register<Form1>(Lifestyle.Singleton);
 
             // Optionally verify the container.
             _container.Verify();
-        }
-
-        public static void RegisterDisposableTransient<TConcrete>(
-            this Container c)
-            where TConcrete : class, IDisposable
-        {
-            var scoped = Lifestyle.Scoped;
-            var r = Lifestyle.Transient.CreateRegistration<TConcrete>(c);
-
-            r.SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "ignore");
-            c.AddRegistration(typeof(TConcrete), r);
-            c.RegisterInitializer<TConcrete>(o => scoped.RegisterForDisposal(c, o));
         }
     }
 }
