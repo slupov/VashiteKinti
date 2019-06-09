@@ -84,7 +84,7 @@ namespace VashiteKinti.Forms
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(624, 408);
             this.dataGridView1.TabIndex = 2;
-            this.dataGridView1.CellContentClick += new DataGridViewCellEventHandler(this.dgv_CellContentClick);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
             // 
             // label2
             // 
@@ -157,8 +157,7 @@ namespace VashiteKinti.Forms
             this.depositNameTextBox.Size = new System.Drawing.Size(243, 20);
             this.depositNameTextBox.TabIndex = 11;
             this.depositNameTextBox.Click += new System.EventHandler(this.depositNameTextBox_Clicked);
-            this.depositNameTextBox.MouseLeave += new System.EventHandler(this.depositNameTextBox_MouseLeave);
-
+            this.depositNameTextBox.LostFocus += new System.EventHandler(this.depositNameTextBox_LostFocus);
             // 
             // bankComboBox
             // 
@@ -204,6 +203,7 @@ namespace VashiteKinti.Forms
             this.button3.TabIndex = 20;
             this.button3.Text = "Edit";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -214,6 +214,7 @@ namespace VashiteKinti.Forms
             this.button4.TabIndex = 21;
             this.button4.Text = "Delete";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // minSumNumUpDown
             // 

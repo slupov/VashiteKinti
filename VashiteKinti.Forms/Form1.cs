@@ -22,6 +22,8 @@ namespace VashiteKinti.Forms
         private readonly string INIT_SELECTED_DEPOSIT_NAME = "--Изберете име на депозит--";
         private readonly string INIT_SELECTED_BANK_NAME    = "--Изберете Банка--";
 
+        private Deposit _lastClickedDeposit;
+
         public Form1(IGenericDataService<Deposit> deposits, IGenericDataService<Bank> banks, VashiteKintiDbContext db)
         {
             db.Database.Migrate();
@@ -29,6 +31,8 @@ namespace VashiteKinti.Forms
 
             _deposits = deposits;
             _banks    = banks;
+
+            _lastClickedDeposit = new Deposit();;
 
             Init();
             InitializeComponent();
@@ -62,7 +66,7 @@ namespace VashiteKinti.Forms
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = await getDepositsDT();     
+            ReloadDataGridViewData();
             MessageBox.Show("Database logs successfuly retrieved.");
         }
 
@@ -94,11 +98,28 @@ namespace VashiteKinti.Forms
 
             if (IsConstructedObjectValid(out newDeposit))
             {
-                MessageBox.Show(string.Format(
-                    "Successfully created a deposit with name {0} for " +
-                    "bank {1}", newDeposit.Name, newDeposit.Bank.Name));
+                bool isAdded = true;
 
-                ResetFields();
+                try
+                {
+                    _deposits.Add(newDeposit);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Failure! " + exception.Message);
+                    isAdded = false;
+                }
+
+                if (isAdded)
+                {
+
+                    MessageBox.Show(string.Format(
+                        "Successfully created a deposit with name {0} for " +
+                        "bank {1}", newDeposit.Name, newDeposit.Bank.Name));
+
+                    ResetFields();
+                    ReloadDataGridViewData();
+                }
             }
         }
 
@@ -142,17 +163,7 @@ namespace VashiteKinti.Forms
                 newDeposit.MinAmount = minSum;
                 newDeposit.Interest = (double)interest;
                 newDeposit.PaymentMethod = interestPayment;
-                newDeposit.Currency = currency;
-
-                try
-                {
-                    _deposits.Add(newDeposit);
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show("Failure! " + exception.Message);
-                    isObjectValid = false;
-                }
+                newDeposit.Currency = currency;     
             }
 
             return isObjectValid;
@@ -160,10 +171,14 @@ namespace VashiteKinti.Forms
 
         private void depositNameTextBox_Clicked(object sender, EventArgs e)
         {
-            depositNameTextBox.Clear();
+            if (depositNameTextBox.Text.Equals(INIT_SELECTED_DEPOSIT_NAME) ||
+                string.IsNullOrEmpty(depositNameTextBox.Text))
+            {
+                depositNameTextBox.Clear();
+            }
         }
 
-        private void depositNameTextBox_MouseLeave(object sender, EventArgs e)
+        private void depositNameTextBox_LostFocus(object sender, EventArgs e)
         {
             if (depositNameTextBox.Text.Equals(INIT_SELECTED_DEPOSIT_NAME) ||
                 string.IsNullOrEmpty(depositNameTextBox.Text))
@@ -180,13 +195,124 @@ namespace VashiteKinti.Forms
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
-                bankComboBox.SelectedItem = row.Cells[nameof(Deposit.Bank)].Value;
-                depositNameTextBox.Text = row.Cells[nameof(Deposit.Name)].Value.ToString();
-                minSumNumUpDown.Value = decimal.Parse(row.Cells[nameof(Deposit.MinAmount)].Value.ToString());
-                interestNumUpDown.Value = decimal.Parse(row.Cells[nameof(Deposit.Interest)].Value.ToString());
+                bankComboBox.SelectedItem         = row.Cells[nameof(Deposit.Bank)].Value;
+                depositNameTextBox.Text           = row.Cells[nameof(Deposit.Name)].Value.ToString();
+                minSumNumUpDown.Value             = decimal.Parse(row.Cells[nameof(Deposit.MinAmount)].Value.ToString());
+                interestNumUpDown.Value           = decimal.Parse(row.Cells[nameof(Deposit.Interest)].Value.ToString());
                 interestTypeComboBox.SelectedItem = row.Cells[nameof(Deposit.PaymentMethod)].Value;
-                currencyComboBox.SelectedItem = row.Cells[nameof(Deposit.Currency)].Value;
+                currencyComboBox.SelectedItem     = row.Cells[nameof(Deposit.Currency)].Value;
+
+                _lastClickedDeposit.Bank          = (Bank)row.Cells[nameof(Deposit.Bank)].Value;
+                _lastClickedDeposit.Name          = row.Cells[nameof(Deposit.Name)].Value.ToString();
+                _lastClickedDeposit.MinAmount     = double.Parse(row.Cells[nameof(Deposit.MinAmount)].Value.ToString());
+                _lastClickedDeposit.Interest      = double.Parse(row.Cells[nameof(Deposit.Interest)].Value.ToString());
+                _lastClickedDeposit.PaymentMethod = (InterestPaymentMethod)row.Cells[nameof(Deposit.PaymentMethod)].Value;
+                _lastClickedDeposit.Currency      = (Currency)row.Cells[nameof(Deposit.Currency)].Value;
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //reset and lock deposit name and Bank fields -> they must not be modified
+            bankComboBox.SelectedItem = _lastClickedDeposit.Bank;
+            depositNameTextBox.Text   = _lastClickedDeposit.Name;
+
+            Deposit newDeposit;
+
+            if (IsConstructedObjectValid(out newDeposit))
+            {
+                try
+                {
+                    Deposit trackedDeposit = _deposits.GetSingleOrDefault(x => x.Bank == _lastClickedDeposit.Bank &&
+                                                                               x.Name.Equals(_lastClickedDeposit.Name));
+
+                    if (null == trackedDeposit)
+                    {
+                        MessageBox.Show(string.Format("Error 404! No deposit with Bank = {0} and name {1} found !!!",
+                            _lastClickedDeposit.Bank.Name, _lastClickedDeposit.Name));
+
+                        return;
+                    }
+
+                    //copy new values into the tracked deposit
+                    trackedDeposit.Bank          = newDeposit.Bank;
+                    trackedDeposit.Name          = newDeposit.Name;
+                    trackedDeposit.MinAmount     = newDeposit.MinAmount;
+                    trackedDeposit.Interest      = newDeposit.Interest;
+                    trackedDeposit.PaymentMethod = newDeposit.PaymentMethod;
+                    trackedDeposit.Currency      = newDeposit.Currency;
+
+                    //TODO STOYAN LUPOV: Catch exception "Cannot update identity column Id" ... 
+                    _deposits.Update(trackedDeposit);
+
+                    MessageBox.Show(string.Format(
+                        "Successfully edited a deposit with name {0} for " +
+                        "bank {1}", newDeposit.Name, newDeposit.Bank.Name));
+
+                    ResetFields();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Failure! " + exception.Message);
+                    throw;
+                }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //----------------- START USER ARE U SURE PROMPT ----------------- 
+
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            string message = string.Format("Are you sure you want to delete deposit with Bank = {0} and name {1}", 
+                _lastClickedDeposit.Bank.Name, _lastClickedDeposit.Name);
+
+            string caption = "Error Detected in Input";
+
+            // Displays the MessageBox.
+            var result = MessageBox.Show(message, caption, buttons);
+            if (result == System.Windows.Forms.DialogResult.No)
+            {
+                return;
+            }
+
+            //----------------- END USER ARE U SURE PROMPT ----------------- 
+            //delete last clicked entity
+            var depositTracked = _deposits.GetSingleOrDefault(x => x.Name.Equals(_lastClickedDeposit.Name) &&
+                                                                   x.Bank == _lastClickedDeposit.Bank);
+
+            if (null == depositTracked)
+            {
+                MessageBox.Show(string.Format("Error 404! No deposit with Bank = {0} and name {1} found !!!",
+                    _lastClickedDeposit.Bank.Name, _lastClickedDeposit.Name));
+
+                return;;
+            }
+
+            bool isRemoved = true;
+
+            try
+            {
+                _deposits.Remove(depositTracked);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Failure! " + exception.Message);
+                isRemoved = false;
+            }
+
+            if (isRemoved)
+            {
+                MessageBox.Show(string.Format("Successfully removed deposit with name {0} and bank {1}",
+                    depositTracked.Name, depositTracked.Bank.Name));
+
+                ReloadDataGridViewData();
+            }
+        }
+
+        private async void ReloadDataGridViewData()
+        {
+            dataGridView1.DataSource = await getDepositsDT();
         }
     }
 }
