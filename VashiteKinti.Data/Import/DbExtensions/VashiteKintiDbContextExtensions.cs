@@ -16,29 +16,38 @@ namespace VashiteKinti.Data.Import.DbExtensions
         {
             if (context.Database.GetPendingMigrations().Any()) return;
 
+            var dataImportPath  = Directory.GetCurrentDirectory();
+
+            if (dataImportPath.EndsWith("bin\\Debug"))
+            {
+                dataImportPath = dataImportPath.Substring(0, dataImportPath.IndexOf("\\bin\\Debug"));
+            }
+
+            dataImportPath += "\\..\\VashiteKinti.Data\\Import\\";
+
             //products to list
             string json = File.ReadAllText(
-                Path.GetFullPath(@"..\VashiteKinti.Data\Import\BanksImport.json"));
+                Path.GetFullPath(dataImportPath + "BanksImport.json"));
             var banksToSeed = JsonConvert.DeserializeObject<Bank[]>(json);
             SeedBanks(context, banksToSeed);
 
-            json = File.ReadAllText(Path.GetFullPath(@"..\VashiteKinti.Data\Import\DepositsImport.json"));
+            json = File.ReadAllText(Path.GetFullPath(dataImportPath + "DepositsImport.json"));
             var depositsToSeed = JsonConvert.DeserializeObject<Deposit[]>(json);
             SeedDeposits(context, depositsToSeed);
 
-            json = File.ReadAllText(Path.GetFullPath(@"..\VashiteKinti.Data\Import\CardsImport.json"));
+            json = File.ReadAllText(Path.GetFullPath(dataImportPath + "CardsImport.json"));
             var cardsToSeed = JsonConvert.DeserializeObject<Card[]>(json);
             SeedCards(context, cardsToSeed);
 
-            json = File.ReadAllText(Path.GetFullPath(@"..\VashiteKinti.Data\Import\CreditsImport.json"));
+            json = File.ReadAllText(Path.GetFullPath(dataImportPath + "CreditsImport.json"));
             var creditsToSeed = JsonConvert.DeserializeObject<Credit[]>(json);
             SeedCredits(context, creditsToSeed);
 
-            json = File.ReadAllText(Path.GetFullPath(@"..\VashiteKinti.Data\Import\InsurancesImport.json"));
+            json = File.ReadAllText(Path.GetFullPath(dataImportPath + "InsurancesImport.json"));
             var insurancesToSeed = JsonConvert.DeserializeObject<Insurance[]>(json);
             SeedInsurances(context, insurancesToSeed);
 
-            json = File.ReadAllText(Path.GetFullPath(@"..\VashiteKinti.Data\Import\InvestmentsImport.json"));
+            json = File.ReadAllText(Path.GetFullPath(dataImportPath + "InvestmentsImport.json"));
             var investmentsToSeed = JsonConvert.DeserializeObject<Investment[]>(json);
             SeedInvestements(context, investmentsToSeed);
         }

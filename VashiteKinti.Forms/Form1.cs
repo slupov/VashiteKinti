@@ -4,7 +4,10 @@ using System.Data;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FastMember;
+using Microsoft.EntityFrameworkCore;
+using VashiteKinti.Data;
 using VashiteKinti.Data.Enums;
+using VashiteKinti.Data.Import.DbExtensions;
 using VashiteKinti.Data.Models;
 using VashiteKinti.Forms.Extensions;
 using VashiteKinti.Services;
@@ -19,8 +22,11 @@ namespace VashiteKinti.Forms
         private readonly string INIT_SELECTED_DEPOSIT_NAME = "--Изберете име на депозит--";
         private readonly string INIT_SELECTED_BANK_NAME    = "--Изберете Банка--";
 
-        public Form1(IGenericDataService<Deposit> deposits, IGenericDataService<Bank> banks)
+        public Form1(IGenericDataService<Deposit> deposits, IGenericDataService<Bank> banks, VashiteKintiDbContext db)
         {
+            db.Database.Migrate();
+            db.EnsureSeedData();
+
             _deposits = deposits;
             _banks    = banks;
 
