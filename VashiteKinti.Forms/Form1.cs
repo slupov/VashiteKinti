@@ -235,8 +235,6 @@ namespace VashiteKinti.Forms
                     }
 
                     //copy new values into the tracked deposit
-                    trackedDeposit.Bank          = newDeposit.Bank;
-                    trackedDeposit.Name          = newDeposit.Name;
                     trackedDeposit.MinAmount     = newDeposit.MinAmount;
                     trackedDeposit.Interest      = newDeposit.Interest;
                     trackedDeposit.PaymentMethod = newDeposit.PaymentMethod;
@@ -253,7 +251,8 @@ namespace VashiteKinti.Forms
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show("Failure! " + exception.Message);
+                    MessageBox.Show("Failure! " + exception.Message + 
+                                    (exception.InnerException == null ? " " : " : " + exception.InnerException.Message));
                     throw;
                 }
             }
