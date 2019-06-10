@@ -38,6 +38,7 @@ namespace VashiteKinti.Forms
             InitializeComponent();
         }
 
+        //Resets widgets values to their default ones
         private void ResetFields()
         {
             //reset Bank combo box field
@@ -48,6 +49,7 @@ namespace VashiteKinti.Forms
             this.depositNameTextBox.SelectedText = INIT_SELECTED_DEPOSIT_NAME;
         }
 
+        //Initializes widgets with some starting default values
         private async void Init()
         {
             var banks = await _banks.GetAllAsync();
@@ -64,17 +66,20 @@ namespace VashiteKinti.Forms
             ResetFields();
         }
 
+        //On "Update table" button click
         private async void button1_Click(object sender, EventArgs e)
         {
             ReloadDataGridViewData();
             MessageBox.Show("Database logs successfuly retrieved.");
         }
 
+        //On Home picture button click
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("This should open the app's website (if hosted) in the browser.");
         }
 
+        //Gets deposits from the database and loads them into a DataTable object
         private async Task<DataTable> getDepositsDT()
         {
             DataTable dtDeposits = new DataTable();
@@ -91,7 +96,7 @@ namespace VashiteKinti.Forms
             return dtDeposits;
         }
 
-
+        //On "Add" button clicked
         private void button2_Click(object sender, EventArgs e)
         {
             Deposit newDeposit;
@@ -123,6 +128,7 @@ namespace VashiteKinti.Forms
             }
         }
 
+        //Checks if the constructed Deposit from the left sidebar is valid
         private bool IsConstructedObjectValid(out Deposit newDeposit)
         {
             bool isObjectValid = true;
@@ -169,6 +175,7 @@ namespace VashiteKinti.Forms
             return isObjectValid;
         }
 
+        //On DepositNameText Box clicked
         private void depositNameTextBox_Clicked(object sender, EventArgs e)
         {
             if (depositNameTextBox.Text.Equals(INIT_SELECTED_DEPOSIT_NAME) ||
@@ -178,6 +185,7 @@ namespace VashiteKinti.Forms
             }
         }
 
+        //On DepositNameText Box lost focus
         private void depositNameTextBox_LostFocus(object sender, EventArgs e)
         {
             if (depositNameTextBox.Text.Equals(INIT_SELECTED_DEPOSIT_NAME) ||
@@ -188,6 +196,7 @@ namespace VashiteKinti.Forms
             }
         }
 
+        //On DataGridView cell clicked
         private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             //change left sidebar data to match row data
@@ -211,6 +220,7 @@ namespace VashiteKinti.Forms
             }
         }
 
+        //On "Edit" button clicked
         private void button3_Click(object sender, EventArgs e)
         {
             //reset and lock deposit name and Bank fields -> they must not be modified
@@ -264,9 +274,17 @@ namespace VashiteKinti.Forms
             }
         }
 
+        //On "Delete" button clicked
         private void button4_Click(object sender, EventArgs e)
         {
             //----------------- START USER ARE U SURE PROMPT ----------------- 
+
+            //check if a row has been selected
+            if (null == _lastClickedDeposit.Bank)
+            {
+                MessageBox.Show("Please select a row from the data grid view first.");
+                return;
+            }
 
             MessageBoxButtons buttons = MessageBoxButtons.YesNo;
             string message = string.Format("Are you sure you want to delete deposit with Bank = {0} and name {1}", 
@@ -282,6 +300,7 @@ namespace VashiteKinti.Forms
             }
 
             //----------------- END USER ARE U SURE PROMPT ----------------- 
+
             //delete last clicked entity
             var depositTracked = _deposits.GetSingleOrDefault(x => x.Name.Equals(_lastClickedDeposit.Name) &&
                                                                    x.Bank == _lastClickedDeposit.Bank);
@@ -291,7 +310,7 @@ namespace VashiteKinti.Forms
                 MessageBox.Show(string.Format("Error 404! No deposit with Bank = {0} and name {1} found !!!",
                     _lastClickedDeposit.Bank.Name, _lastClickedDeposit.Name));
 
-                return;;
+                return;
             }
 
             bool isRemoved = true;
@@ -315,6 +334,7 @@ namespace VashiteKinti.Forms
             }
         }
 
+        //Reloads the data grid view
         private async void ReloadDataGridViewData()
         {
             dataGridView1.DataSource = await getDepositsDT();
