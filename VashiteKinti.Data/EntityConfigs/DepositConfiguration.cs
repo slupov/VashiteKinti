@@ -12,15 +12,6 @@ namespace VashiteKinti.Data.EntityConfigs
         public void Configure(EntityTypeBuilder<Deposit> builder)
         {
             builder.ToTable("Deposits");
-
-            builder.Property(p => p.Id).ValueGeneratedOnAdd();
-
-            builder
-                .HasKey(c => new {c.BankId, c.Name});
-
-            builder
-                .HasIndex(x => x.Name)
-                .IsUnique();
         }
     }
 }

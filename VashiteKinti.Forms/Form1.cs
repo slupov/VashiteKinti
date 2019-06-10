@@ -221,6 +221,8 @@ namespace VashiteKinti.Forms
 
             if (IsConstructedObjectValid(out newDeposit))
             {
+                bool isEdited = true;
+
                 try
                 {
                     Deposit trackedDeposit = _deposits.GetSingleOrDefault(x => x.Bank == _lastClickedDeposit.Bank &&
@@ -242,18 +244,22 @@ namespace VashiteKinti.Forms
 
                     //TODO STOYAN LUPOV: Catch exception "Cannot update identity column Id" ... 
                     _deposits.Update(trackedDeposit);
+                }
+                catch (Exception exception)
+                {
+                    isEdited = false;
+                    MessageBox.Show("Failure! " + exception.Message + 
+                                    (exception.InnerException == null ? " " : " : " + exception.InnerException.Message));
+                }
 
+                if (isEdited)
+                {
                     MessageBox.Show(string.Format(
                         "Successfully edited a deposit with name {0} for " +
                         "bank {1}", newDeposit.Name, newDeposit.Bank.Name));
 
+                    ReloadDataGridViewData();
                     ResetFields();
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show("Failure! " + exception.Message + 
-                                    (exception.InnerException == null ? " " : " : " + exception.InnerException.Message));
-                    throw;
                 }
             }
         }

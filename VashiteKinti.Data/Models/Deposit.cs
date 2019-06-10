@@ -1,20 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using VashiteKinti.Data.Enums;
 
 namespace VashiteKinti.Data.Models
 {
     public class Deposit
     {
+        [Key]
+        [Index("IX_CompositeUniqueKey", 1, IsUnique = true)]
         public int Id { get; set; }
 
         [DisplayName("Банка")]
         public virtual Bank Bank { get; set; }
+
+        [Index("IX_CompositeUniqueKey", 2, IsUnique = true)]
         public int BankId { get; set; }
 
         [DisplayName("Име на депозит")]
+        [Index("IX_CompositeUniqueKey", 3, IsUnique = true)]
         public String Name { get; set; }
 
         [DisplayName("Минимална сума")]
