@@ -7,9 +7,13 @@
 <h1 id="text-orange">Списък с банки</h1>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<p>
-    <a asp-action="Create" class="btn btn-success" id="btn-add"><i class="fa fa-plus"></i> Добавяне на банка</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-success" id="btn-add"><i class="fa fa-plus"></i> Добавяне на банка</a>
+    </p>
+}
+
 <table class="table">
     <thead>
         <tr>

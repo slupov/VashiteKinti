@@ -27,11 +27,14 @@
     <div class="col-xs-6 col-sm-5 col-md-5 input-holder">
         <button class="btn btn-warning" id="btn-submit-deposits-filter" asp-controller="Deposits" asp-action="FilterCatalogueDeposits">Филтрирай</button>
     </div>
-
 </form>
-<p>
-    <a asp-action="Create">Създай депозит</a>
-</p>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Създай депозит</a>
+    </p>
+}
 
 <table class="table">
     <thead>
