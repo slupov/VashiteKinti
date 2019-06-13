@@ -20,13 +20,11 @@ namespace VashiteKinti.Tests
             var item1 = new Bank()
             {
                 Name = "ProCreditBank",
-
             };
 
             var item2 = new Bank()
             {
                 Name = "DSK",
-
             };
 
             var items = new GenericDataService<Bank>(db);
@@ -38,7 +36,6 @@ namespace VashiteKinti.Tests
             Assert.Equal(2, result);
 
         }
-
 
 
         [Fact]
